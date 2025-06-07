@@ -1,0 +1,31 @@
+version: '3.7'
+
+services:
+  db:
+    image: mariadb:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: cacti
+      MYSQL_USER: cacti
+      MYSQL_PASSWORD: cacti_password
+    volumes:
+      - db_data:/var/lib/mysql
+
+  cacti:
+    image: crazymax/cacti:latest
+    ports:
+      - "8080:80"
+    environment:
+      - DB_HOST=db
+      - DB_NAME=cacti
+      - DB_USER=cacti
+      - DB_PASSWORD=cacti_password
+      - TZ=Europe/Berlin
+    depends_on:
+      - db
+    volumes:
+      - cacti_data:/data
+
+volumes:
+  db_data:
+  cacti_data:
