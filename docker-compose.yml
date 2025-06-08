@@ -2,17 +2,21 @@ version: '3.7'
 
 services:
   db:
-    image: mariadb:latest
+    image: mariadb:10.6.21
+    container_name: cacti_db
     environment:
       MYSQL_ROOT_PASSWORD: root_password
       MYSQL_DATABASE: cacti
       MYSQL_USER: cacti
       MYSQL_PASSWORD: cacti_password
+      MYSQL_INITDB_SKIP_TZINFO: 0
     volumes:
-      - db_data:/var/lib/mysql
+      - db:/var/lib/mysql
 
   cacti:
-    image: crazymax/cacti:latest
+#    image: 
+    build: .
+    container_name: cacti_app
     ports:
       - "8080:80"
     environment:
