@@ -1,5 +1,4 @@
 version: '3.7'
-
 services:
   db:
     image: mariadb:10.6.21
@@ -11,10 +10,9 @@ services:
       MYSQL_PASSWORD: cacti_password
       MYSQL_INITDB_SKIP_TZINFO: 0
     volumes:
-      - db:/var/lib/mysql
-
+      - ./db:/var/lib/mysql
   cacti:
-#    image: 
+#    image:
     build: .
     container_name: cacti_app
     ports:
@@ -28,8 +26,5 @@ services:
     depends_on:
       - db
     volumes:
-      - cacti_data:/data
-
-volumes:
-  db_data:
-  cacti_data:
+    #  - ./cacti_plugins:/var/www/htnl/plugins
+    #  - ./cacti_log:/var/www/htnl/log
