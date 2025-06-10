@@ -7,8 +7,9 @@ services:
       MYSQL_ROOT_PASSWORD: root_password
       MYSQL_DATABASE: cacti
       MYSQL_USER: cacti
-      MYSQL_PASSWORD: cacti_password
+      MYSQL_PASSWORD: changeme
       MYSQL_INITDB_SKIP_TZINFO: 0
+      TZ: Europe/Berlin
     volumes:
       - ./db:/var/lib/mysql
   cacti:
@@ -16,16 +17,16 @@ services:
     build: .
     container_name: cacti_app
     ports:
-      - "8080:80"
+      - "7070:7070"
     environment:
-      - DB_HOST=db
-      - DB_NAME=cacti
-      - DB_USER=cacti
-      - DB_PASSWORD=cacti_password
-      - TZ=Europe/Berlin
+      CACTI_DB_HOST: "db"
+      CACTI_DB_NAME: "cacti"
+      CACTI_DB_USER: "cacti"
+      CACTI_DB_PASS: "changeme"
+      TZ: Europe/Berlin
     depends_on:
       - db
-    volumes:
+#    volumes:
     #  - ./cacti_rra:/var/www/htnl/rra
     #  - ./cacti_plugins:/var/www/htnl/plugins
     #  - ./cacti_log:/var/www/htnl/log
