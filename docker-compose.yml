@@ -12,12 +12,13 @@ services:
       TZ: Europe/Berlin
     volumes:
       - ./db:/var/lib/mysql
+      - ./maria-config:/etc/mysql/mariadb.conf.d
   cacti:
 #    image:
     build: .
     container_name: cacti_app
     ports:
-      - "7070:7070"
+      - "7070:80"
     environment:
       CACTI_DB_HOST: "db"
       CACTI_DB_NAME: "cacti"

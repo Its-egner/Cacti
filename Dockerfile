@@ -123,7 +123,7 @@ COPY supervisord.conf /etc/supervisord.conf
 ENTRYPOINT [ "/usr/bin/supervisord", "-c", "/etc/supervisord.conf" ]
 
 # expose tcp port
-EXPOSE 7070/tcp
+EXPOSE 80/tcp
 
 # set volumes
-VOLUME ["/var/www/html/cacti/log","/var/www/html/cacti/rra","/var/www/html/plugins/"]
+VOLUME ["/var/www/html/cacti/log","/var/www/html/cacti/rra","/var/www/html/cacti/plugins/"]
