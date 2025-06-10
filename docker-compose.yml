@@ -27,7 +27,7 @@ services:
       TZ: Europe/Berlin
     depends_on:
       - db
-#    volumes:
-    #  - ./cacti_rra:/var/www/htnl/rra
-    #  - ./cacti_plugins:/var/www/htnl/plugins
-    #  - ./cacti_log:/var/www/htnl/log
+    volumes:
+      - ./cacti_rra:/var/www/htnl/rra
+      - ./cacti_plugins:/var/www/htnl/plugins
+      - ./cacti_log:/var/www/htnl/log
