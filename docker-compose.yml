@@ -1,4 +1,3 @@
-version: '3.7'
 services:
   db:
     image: mariadb:10.6.21
@@ -11,7 +10,7 @@ services:
       MYSQL_INITDB_SKIP_TZINFO: 0
       TZ: Europe/Berlin
     volumes:
-      - ./db:/var/lib/mysql
+      - ./cacti_db:/var/lib/mysql
       - ./maria-config:/etc/mysql/mariadb.conf.d
   cacti:
 #    image:
