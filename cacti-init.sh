@@ -1,9 +1,3 @@
-cp config.php.dist config.php 
-
-#CACTI_DB_HOST=db
-#CACTI_DB_USER=cactiuser
-#CACTI_DB_PASS=changeme
-#CACTI_DB_NAME=cacti
 config=/var/www/html/cacti/include/config.php
 
 sed -i '/database_default/d' $config
