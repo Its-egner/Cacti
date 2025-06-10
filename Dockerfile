@@ -2,12 +2,6 @@
 
 FROM ubuntu:24.04
 
-
-#ARG CACTI_DB_HOST=db
-#ARG OBSERVIUM_DB_USER=observium
-#ARG OBSERVIUM_DB_PASS=passw0rd
-#ARG OBSERVIUM_DB_NAME=observium
-
 LABEL maintainer "admin@its-egner.de"
 LABEL version "0.1"
 LABEL description "Docker container for Cacti Monitoring"
@@ -99,6 +93,9 @@ WORKDIR /var/www/html
 RUN git clone -b 1.2.x https://github.com/Cacti/cacti.git
 RUN chown -R www-data:www-data /var/www/html/cacti
 RUN cp /var/www/html/cacti/include/config.php.dist /var/www/html/cacti/include/config.php
+
+COPY init-db.sh /var/www/html/init-db.sh
+RUN chmod a+x /var/www/html/init-db.sh
 
 COPY cacti-init.sh /root/cacti-init.sh
 RUN chmod a+x /root/cacti-init.sh
