@@ -20,3 +20,5 @@ Do Database initialisation with
 docker exec -ti cacti_app bash /var/www/html/init-db.sh
 
 visit cacti <your_IP>:7070/cacti
+
+If prompt for Login use admin admin
