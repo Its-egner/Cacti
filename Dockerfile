@@ -7,12 +7,21 @@ LABEL version "0.1"
 LABEL description "Docker container for Cacti Monitoring"
 
 # set environment variables
+
+
+
+ENV CACTI_DB_HOST
+ENV CACTI_DB_USER
+ENV CACTI_DB_PASS
+ENV CACTI_DB_NAME
+ENV TZ
+
 ENV LANG=en_US.UTF-8
-ENV TZ=Europe/Berlin
-ENV CACTI_DB_HOST=db
-ENV CACTI_DB_USER=cactiuser
-ENV CACTI_DB_PASS=changeme
-ENV CACTI_DB_NAME=cacti
+ENV TZ=$TZ
+ENV CACTI_DB_HOST=$CACTI_DB_HOST
+ENV CACTI_DB_USER=$CACTI_DB_USER
+ENV CACTI_DB_PASS=$CACTI_DB_PASS
+ENV CACTI_DB_NAME=$CACTI_DB_NAME
 
 # ensure apt will not ask for things interactively
 ARG DEBIAN_FRONTEND=noninteractive
@@ -95,7 +104,7 @@ RUN chown -R www-data:www-data /var/www/html/cacti
 RUN cp /var/www/html/cacti/include/config.php.dist /var/www/html/cacti/include/config.php
 
 COPY init-db.sh /var/www/html/init-db.sh
-RUN chmod a+x /var/www/html/init-db.sh
+RUN chmod 700 /var/www/html/init-db.sh
 
 COPY cacti-init.sh /root/cacti-init.sh
 RUN chmod a+x /root/cacti-init.sh
