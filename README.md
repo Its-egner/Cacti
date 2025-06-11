@@ -17,12 +17,6 @@ Container will build and start
 
 Do Database initialisation with
 
-docker exec -ti cacti_app init-db.sh
-
-Import Timezone File to Database
-
-docker exec -ti cacti_db bash
-
-mysql -u root -proot_password mysql < /usr/share/mysql/mysql_test_data_timezone.sql
+docker exec -ti cacti_app bash /var/www/html/init-db.sh
 
 visit cacti <your_IP>:7070/cacti
