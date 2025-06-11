@@ -100,6 +100,9 @@ RUN chmod a+x /var/www/html/init-db.sh
 COPY cacti-init.sh /root/cacti-init.sh
 RUN chmod a+x /root/cacti-init.sh
 
+COPY timezone.sql  /var/www/html/cacti/timezone.sql
+RUN chmod 644 /var/www/html/cacti/timezone.sql
+
 # configure php modules
 RUN phpenmod mcrypt
 
