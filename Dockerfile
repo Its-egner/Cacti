@@ -10,11 +10,11 @@ LABEL description "Docker container for Cacti Monitoring"
 
 
 
-ENV CACTI_DB_HOST
-ENV CACTI_DB_USER
-ENV CACTI_DB_PASS
-ENV CACTI_DB_NAME
-ENV TZ
+ARG CACTI_DB_HOST
+ARG CACTI_DB_USER
+ARG CACTI_DB_PASS
+ARG CACTI_DB_NAME
+ARG TZ
 
 ENV LANG=en_US.UTF-8
 ENV TZ=$TZ
@@ -135,4 +135,4 @@ ENTRYPOINT [ "/usr/bin/supervisord", "-c", "/etc/supervisord.conf" ]
 EXPOSE 80/tcp
 
 # set volumes
-VOLUME ["/var/www/html/cacti/log","/var/www/html/cacti/rra","/var/www/html/cacti/plugins/"]
+#VOLUME ["/var/www/html/cacti/log","/var/www/html/cacti/rra","/var/www/html/cacti/plugins/"]
