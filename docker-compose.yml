@@ -27,6 +27,6 @@ services:
     depends_on:
       - db
     volumes:
-      - ./cacti_rra:/var/www/htnl/cacti/rra
-      - ./cacti_plugins:/var/www/htnl/cacti/plugins
-      - ./cacti_log:/var/www/htnl/cacti/log
+      - ./cacti_rra:/var/www/html/cacti/rra
+      - ./cacti_plugins:/var/www/html/cacti/plugins
+      - ./cacti_log:/var/www/html/cacti/log
