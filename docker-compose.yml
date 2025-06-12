@@ -13,7 +13,7 @@ services:
       - ./cacti_db:/var/lib/mysql
       - ./maria-config:/etc/mysql/mariadb.conf.d
   cacti:
-#    image:
+#    image: itsegner/cacti:latest
     build: .
     container_name: cacti_app
     ports:
