@@ -13,9 +13,11 @@ Edit docker-compose File, change Passwords!
 
 do docker compose up -d
 
-chown 33:33 cacti_log/ cacti_plugins/ cacti_rra/
-
 Container will build and start
+
+Chown the Files to
+
+chown 33:33 cacti_log/ cacti_plugins/ cacti_rra/
 
 Do Database initialisation with
 
