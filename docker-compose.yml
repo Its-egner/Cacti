@@ -30,3 +30,9 @@ services:
       - ./cacti_rra:/var/www/html/cacti/rra
       - ./cacti_plugins:/var/www/html/cacti/plugins
       - ./cacti_log:/var/www/html/cacti/log
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
