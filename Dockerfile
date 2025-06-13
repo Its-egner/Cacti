@@ -44,7 +44,7 @@ RUN apt update && \
 
 
 # install observium required packages
-RUN apt install -y  libapache2-mod-php \
+RUN apt install -y libapache2-mod-php \
                     php-cli \
                     php-mysql \
                     php-gd \
@@ -67,20 +67,10 @@ RUN apt install -y  libapache2-mod-php \
 		    php-xml \
 		    php-common \
 		    php-ldap \
-                    libphp-phpmailer \
-                    libvirt-clients \
                     mysql-client \
                     rrdtool \
-                    subversion \
-                    whois \
-                    mtr-tiny \
-                    ipmitool \
                     graphviz \
-                    imagemagick \
-                    apache2 \
-                    python3-mysqldb \
-                    python3-pymysql \
-                    python-is-python3
+                    apache2 
 
 # cleanup
 RUN apt clean && \
@@ -99,27 +89,17 @@ RUN apt clean && \
 RUN locale-gen $LANG
 
 WORKDIR /var/www/html
-RUN git clone -b 1.2.x https://github.com/Cacti/cacti.git
-RUN chown -R www-data:www-data /var/www/html/cacti
-RUN cp /var/www/html/cacti/include/config.php.dist /var/www/html/cacti/include/config.php
+RUN git clone -b 1.2.x https://github.com/Cacti/cacti.git && chown -R www-data:www-data /var/www/html/cacti && cp /var/www/html/cacti/include/config.php.dist /var/www/html/cacti/include/config.php
 
 COPY init-db.sh /var/www/html/init-db.sh
-RUN chmod 700 /var/www/html/init-db.sh
-
 COPY cacti-init.sh /root/cacti-init.sh
-RUN chmod a+x /root/cacti-init.sh
-
 COPY timezone.sql  /var/www/html/cacti/timezone.sql
-RUN chmod 644 /var/www/html/cacti/timezone.sql
 
-# configure php modules
-RUN phpenmod mcrypt
+RUN chmod 700 /var/www/html/init-db.sh && chmod a+x /root/cacti-init.sh && chmod 644 /var/www/html/cacti/timezone.sql
 
 # setup apache configuration and modules
 COPY cacti-web.conf /etc/apache2/sites-available/000-default.conf
-RUN a2dismod mpm_event && \
-    a2enmod mpm_prefork && \
-    a2enmod php8.3 && \
+RUN a2enmod php8.3 && \
     a2enmod rewrite && \
     chmod 644 /etc/apache2/sites-available/000-default.conf
 
