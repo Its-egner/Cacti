@@ -3,7 +3,7 @@
 FROM ubuntu:24.04
 
 LABEL maintainer "admin@its-egner.de"
-LABEL version "0.1"
+LABEL version "1.1"
 LABEL description "Docker container for Cacti Monitoring"
 
 # set environment variables
@@ -40,11 +40,8 @@ RUN apt update && \
                     iproute2 \
                     iputils-ping \
                     fping \
-                    git
-
-
-# install observium required packages
-RUN apt install -y libapache2-mod-php \
+                    git && \
+apt install -y libapache2-mod-php \
                     php-cli \
                     php-mysql \
                     php-gd \
@@ -70,10 +67,8 @@ RUN apt install -y libapache2-mod-php \
                     mysql-client \
                     rrdtool \
                     graphviz \
-                    apache2 
-
-# cleanup
-RUN apt clean && \
+                    apache2 && \
+apt clean && \
     rm -f /etc/apache2/sites-available/* \
        /etc/cron.d/* \
        /etc/cron.hourly/* \
@@ -85,29 +80,21 @@ RUN apt clean && \
     rm -fr /var/log/* && \
     mkdir /var/log/apache2
 
-# set locale
-RUN locale-gen $LANG
-
 WORKDIR /var/www/html
 RUN git clone -b 1.2.x https://github.com/Cacti/cacti.git && chown -R www-data:www-data /var/www/html/cacti && cp /var/www/html/cacti/include/config.php.dist /var/www/html/cacti/include/config.php
 
 COPY init-db.sh /var/www/html/init-db.sh
 COPY cacti-init.sh /root/cacti-init.sh
 COPY timezone.sql  /var/www/html/cacti/timezone.sql
-
-RUN chmod 700 /var/www/html/init-db.sh && chmod a+x /root/cacti-init.sh && chmod 644 /var/www/html/cacti/timezone.sql
-
-# setup apache configuration and modules
+COPY cacti-cron.conf  /etc/cron.d/cacti-poller
+COPY supervisord.conf /etc/supervisord.conf
 COPY cacti-web.conf /etc/apache2/sites-available/000-default.conf
-RUN a2enmod php8.3 && \
+
+
+RUN chmod 700 /var/www/html/init-db.sh && chmod a+x /root/cacti-init.sh && chmod 644 /var/www/html/cacti/timezone.sql && chmod 644 /etc/cron.d/cacti-poller && a2enmod php8.3 && \
     a2enmod rewrite && \
     chmod 644 /etc/apache2/sites-available/000-default.conf
 
-# configure cron and logrotate
-COPY cacti-cron.conf  /etc/cron.d/cacti-poller
-RUN chmod 644 /etc/cron.d/cacti-poller
-
-# configure entry point
 COPY supervisord.conf /etc/supervisord.conf
 ENTRYPOINT [ "/usr/bin/supervisord", "-c", "/etc/supervisord.conf" ]
 
