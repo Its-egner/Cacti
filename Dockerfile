@@ -67,8 +67,13 @@ apt install -y libapache2-mod-php \
                     mysql-client \
                     rrdtool \
                     graphviz \
-                    apache2 && \
-apt clean && \
+                    apache2 \ 
+build-essential autoconf automake dos2unix gzip help2man m4 make wget libtool libsnmp-dev libmariadb-dev libmariadb-dev-compat libmariadb-dev
+WORKDIR /root/
+RUN git clone -b 1.2.x https://github.com/Cacti/spine.git
+RUN cd /root/spine && libtoolize --force && aclocal && autoheader && automake --force-missing --add-missing && autoconf && ./configure && make && make install && cp /usr/local/spine/etc/spine.conf.dist /usr/local/spine/etc/spine.conf
+
+RUN apt remove -y build-essential autoconf automake dos2unix help2man m4 make libtool libsnmp-dev libmariadb-dev libmariadb-dev-compat libmariadb-dev && apt clean && \
     rm -f /etc/apache2/sites-available/* \
        /etc/cron.d/* \
        /etc/cron.hourly/* \
