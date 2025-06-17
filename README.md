@@ -27,3 +27,7 @@ docker exec -ti cacti_app bash /var/www/html/init-db.sh
 visit cacti <your_IP>:7070/cacti
 
 If prompt for Login use admin admin
+
+If you want to use Spine, enter config Path
+
+/usr/local/spine/etc/spine.conf
