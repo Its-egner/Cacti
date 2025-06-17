@@ -66,7 +66,6 @@ apt install -y libapache2-mod-php \
 		    php-ldap \
                     mysql-client \
                     rrdtool \
-                    graphviz \
                     apache2 \ 
 build-essential autoconf automake dos2unix gzip help2man m4 make wget libtool libsnmp-dev libmariadb-dev libmariadb-dev-compat libmariadb-dev
 WORKDIR /root/
