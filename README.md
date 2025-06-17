@@ -3,7 +3,7 @@
 
 For help visit me at http://forum.its-egner.de
 
-At first do 
+At first clone Repo and change Directory 
 
 ```
 git clone https://github.com/Its-egner/Cacti.git
