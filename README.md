@@ -29,5 +29,6 @@ visit cacti <your_IP>:7070/cacti
 If prompt for Login use admin admin
 
 If you want to use Spine, enter config Path
-
+```
 /usr/local/spine/etc/spine.conf
+```
