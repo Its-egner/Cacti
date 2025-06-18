@@ -5,7 +5,7 @@ For help visit me at http://forum.its-egner.de
 
 At first clone Repo and change Directory 
 
-```
+```bash
 git clone https://github.com/Its-egner/Cacti.git
 cd Cacti
 ```
