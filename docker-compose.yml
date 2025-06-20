@@ -15,6 +15,7 @@ services:
       - ./maria-config:/etc/mysql/mariadb.conf.d
   cacti:
 #    image: itsegner/cacti:latest
+#    image: itsegner/cacti-develop:latest
     build: .
     container_name: cacti_app
     restart: unless-stopped

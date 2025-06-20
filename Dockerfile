@@ -2,9 +2,9 @@
 
 FROM ubuntu:24.04
 
-LABEL maintainer "admin@its-egner.de"
-LABEL version "1.1"
-LABEL description "Docker container for Cacti Monitoring"
+LABEL maintainer="admin@its-egner.de"
+LABEL version="1.3"
+LABEL description="Docker container for Cacti Monitoring"
 
 # set environment variables
 
