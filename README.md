@@ -32,3 +32,10 @@ If you want to use Spine, enter config Path
 ```
 /usr/local/spine/etc/spine.conf
 ```
+
+If you want to migrate from nativ installation:
+```
+cp -r /var/www/html/cacti/rra/ /yourpath/Cacti/cacti_rra/
+mysqldump -u cactiuser -pyourpassword cacti > cacti.sql
+docker exec -i cacti_app mysql -u cacti -pyourpassword cacti < cacti.sql
+```
