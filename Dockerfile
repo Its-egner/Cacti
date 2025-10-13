@@ -3,7 +3,7 @@
 FROM ubuntu:24.04
 
 LABEL maintainer="admin@its-egner.de"
-LABEL version="1.3"
+LABEL version="1.1"
 LABEL description="Docker container for Cacti Monitoring"
 
 # set environment variables
@@ -14,9 +14,20 @@ ARG CACTI_DB_HOST
 ARG CACTI_DB_USER
 ARG CACTI_DB_PASS
 ARG CACTI_DB_NAME
-ARG TZ
 
-ENV LANG=en_US.UTF-8
+RUN apt update && \
+    apt upgrade -y && \
+    apt install -y  locales
+
+# Set the locale
+RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && \
+    locale-gen
+ENV LANG=en_US.UTF-8  
+ENV LANGUAGE=en_US:en  
+ENV LC_ALL=en_US.UTF-8  
+
+
+ARG TZ
 ENV TZ=$TZ
 ENV CACTI_DB_HOST=$CACTI_DB_HOST
 ENV CACTI_DB_USER=$CACTI_DB_USER
@@ -30,7 +41,6 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN apt update && \
     apt upgrade -y && \
     apt install -y  cron \
-                    locales \
                     supervisor \
                     curl \
                     wget \
