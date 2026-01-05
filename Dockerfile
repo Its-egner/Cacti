@@ -1,9 +1,31 @@
 # Introducing the dockerfile
+FROM ubuntu:24.04 AS build
 
-FROM ubuntu:24.04
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN apt update && \
+    apt upgrade -y && \
+    apt install -y  locales git build-essential autoconf automake dos2unix gzip help2man m4 make wget libtool libsnmp-dev libmariadb-dev libmariadb-dev-compat libmariadb-dev
+
+# Set the locale
+RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && \
+    locale-gen
+ENV LANG=en_US.UTF-8
+ENV LANGUAGE=en_US:en
+ENV LC_ALL=en_US.UTF-8
+
+WORKDIR /root/
+RUN git clone -b 1.2.x https://github.com/Cacti/spine.git
+RUN cd /root/spine && libtoolize --force && aclocal && autoheader && automake --force-missing --add-missing && autoconf && ./configure --enable-warnings && make clean && make && make install && cp /usr/local/spine/etc/spine.conf.dist /usr/local/spine/etc/spine.conf
+
+FROM ubuntu:24.04 AS final
+COPY --from=build /usr/local/spine/ /usr/local/spine/
+COPY --from=build /usr/lib/x86_64-linux-gnu/libmariadb.so.3 /usr/lib/x86_64-linux-gnu/libmariadb.so.3
+
+RUN chown root /usr/local/spine/bin/spine && chmod u+s /usr/local/spine/bin/spine
 
 LABEL maintainer="admin@its-egner.de"
-LABEL version="1.1"
+LABEL version="1.3"
 LABEL description="Docker container for Cacti Monitoring"
 
 # set environment variables
@@ -16,7 +38,6 @@ ARG CACTI_DB_PASS
 ARG CACTI_DB_NAME
 
 RUN apt update && \
-    apt upgrade -y && \
     apt install -y  locales
 
 # Set the locale
@@ -62,28 +83,23 @@ apt install -y libapache2-mod-php \
                     php-curl \
                     php-apcu \
                     php-pear \
-		    php-net-socket \
-		    php-intl \
-		    php-imap \
-		    php-memcache \
-		    php-pspell \
-		    php-tidy \
-		    php-xmlrpc \
-		    php-snmp \
-		    php-gmp \
-		    php-xml \
-		    php-common \
-		    php-ldap \
+                    php-net-socket \
+                    php-intl \
+                    php-imap \
+                    php-memcache \
+                    php-pspell \
+                    php-tidy \
+                    php-xmlrpc \
+                    php-snmp \
+                    php-gmp \
+                    php-xml \
+                    php-common \
+                    php-ldap \
                     mysql-client \
                     rrdtool \
-                    apache2 \ 
-build-essential autoconf automake dos2unix gzip help2man m4 make wget libtool libsnmp-dev libmariadb-dev libmariadb-dev-compat libmariadb-dev
-WORKDIR /root/
-RUN git clone -b 1.2.x https://github.com/Cacti/spine.git
-RUN cd /root/spine && libtoolize --force && aclocal && autoheader && automake --force-missing --add-missing && autoconf && ./configure && make && make install && cp /usr/local/spine/etc/spine.conf.dist /usr/local/spine/etc/spine.conf
+                    apache2  
 
-RUN apt remove -y build-essential autoconf automake dos2unix help2man m4 make libtool libsnmp-dev libmariadb-dev libmariadb-dev-compat libmariadb-dev && apt clean && \
-    rm -f /etc/apache2/sites-available/* \
+RUN rm -f /etc/apache2/sites-available/* \
        /etc/cron.d/* \
        /etc/cron.hourly/* \
        /etc/cron.daily/* \
@@ -115,5 +131,3 @@ ENTRYPOINT [ "/usr/bin/supervisord", "-c", "/etc/supervisord.conf" ]
 # expose tcp port
 EXPOSE 80/tcp
 
-# set volumes
-#VOLUME ["/var/www/html/cacti/log","/var/www/html/cacti/rra","/var/www/html/cacti/plugins/"]
