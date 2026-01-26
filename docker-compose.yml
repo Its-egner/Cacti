@@ -12,7 +12,7 @@ services:
       TZ: Europe/Berlin
     volumes:
       - ./cacti_db:/var/lib/mysql
-      - ./maria-config:/etc/mysql/mariadb.conf.d
+      - ./60-cacti.cnf:/etc/mysql/mariadb.conf.d/60-cacti.cnf
   cacti:
 #    image: itsegner/cacti:latest
 #    image: itsegner/cacti-develop:latest
