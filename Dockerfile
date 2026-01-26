@@ -20,7 +20,7 @@ RUN cd /root/spine && libtoolize --force && aclocal && autoheader && automake --
 
 FROM ubuntu:24.04 AS final
 COPY --from=build /usr/local/spine/ /usr/local/spine/
-COPY --from=build /usr/lib/x86_64-linux-gnu/libmariadb.so.3 /usr/lib/x86_64-linux-gnu/libmariadb.so.3
+#COPY --from=build /usr/lib/x86_64-linux-gnu/libmariadb.so.3 /usr/lib/x86_64-linux-gnu/libmariadb.so.3
 
 RUN chown root /usr/local/spine/bin/spine && chmod u+s /usr/local/spine/bin/spine
 
@@ -38,7 +38,7 @@ ARG CACTI_DB_PASS
 ARG CACTI_DB_NAME
 
 RUN apt update && \
-    apt install -y  locales
+    apt install -y  locales libmariadb3
 
 # Set the locale
 RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && \
