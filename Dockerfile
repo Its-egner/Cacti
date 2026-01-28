@@ -29,24 +29,10 @@ LABEL version="1.3"
 LABEL description="Docker container for Cacti Monitoring"
 
 # set environment variables
-
-
-
 ARG CACTI_DB_HOST
 ARG CACTI_DB_USER
 ARG CACTI_DB_PASS
 ARG CACTI_DB_NAME
-
-RUN apt update && \
-    apt install -y  locales libmariadb3
-
-# Set the locale
-RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && \
-    locale-gen
-ENV LANG=en_US.UTF-8  
-ENV LANGUAGE=en_US:en  
-ENV LC_ALL=en_US.UTF-8  
-
 
 ARG TZ
 ENV TZ=$TZ
@@ -71,8 +57,8 @@ RUN apt update && \
                     iproute2 \
                     iputils-ping \
                     fping \
-                    git && \
-apt install -y libapache2-mod-php \
+                    git \
+                    libapache2-mod-php \
                     php-cli \
                     php-mysql \
                     php-gd \
@@ -97,7 +83,17 @@ apt install -y libapache2-mod-php \
                     php-ldap \
                     mysql-client \
                     rrdtool \
-                    apache2  
+                    apache2 \
+                    locales \
+                    libmariadb3  
+
+# Set the locale
+RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && \
+    locale-gen
+ENV LANG=en_US.UTF-8  
+ENV LANGUAGE=en_US:en  
+ENV LC_ALL=en_US.UTF-8  
+
 
 RUN rm -f /etc/apache2/sites-available/* \
        /etc/cron.d/* \
