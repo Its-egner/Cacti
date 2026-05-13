@@ -1,5 +1,5 @@
 # Introducing the dockerfile
-FROM ubuntu:24.04 AS build
+FROM ubuntu:26.04 AS build
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -18,7 +18,7 @@ WORKDIR /root/
 RUN git clone -b 1.2.x https://github.com/Cacti/spine.git
 RUN cd /root/spine && libtoolize --force && aclocal && autoheader && automake --force-missing --add-missing && autoconf && ./configure --enable-warnings && make clean && make && make install && cp /usr/local/spine/etc/spine.conf.dist /usr/local/spine/etc/spine.conf
 
-FROM ubuntu:24.04 AS final
+FROM ubuntu:26.04 AS final
 COPY --from=build /usr/local/spine/ /usr/local/spine/
 #COPY --from=build /usr/lib/x86_64-linux-gnu/libmariadb.so.3 /usr/lib/x86_64-linux-gnu/libmariadb.so.3
 
@@ -65,13 +65,11 @@ RUN apt update && \
                     php-json \
                     php-bcmath \
                     php-mbstring \
-                    php-opcache \
                     php-curl \
                     php-apcu \
                     php-pear \
                     php-net-socket \
                     php-intl \
-                    php-imap \
                     php-memcache \
                     php-pspell \
                     php-tidy \
@@ -81,7 +79,7 @@ RUN apt update && \
                     php-xml \
                     php-common \
                     php-ldap \
-                    mysql-client \
+                    mariadb-client \
                     rrdtool \
                     apache2 \
                     locales \
