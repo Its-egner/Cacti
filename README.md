@@ -6,7 +6,7 @@ For help visit me at http://forum.its-egner.de
 At first clone Repo and change Directory 
 
 ```bash
-git clone https://github.com/Its-egner/Cacti.git
+git clone -b ubuntu_26.04 https://github.com/Its-egner/Cacti.git
 cd Cacti
 ```
 
@@ -44,7 +44,7 @@ docker exec -i cacti_app mysql -u cacti -pyourpassword cacti < cacti.sql
 
 ```
 mv Cacti/docker-compose.yml Cacti/docker-compose.bak
-git clone https://github.com/Its-egner/Cacti.git
+git clone -b ubuntu_26.04 https://github.com/Its-egner/Cacti.git
 cd Cacti
 ```
 
