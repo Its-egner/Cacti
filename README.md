@@ -51,7 +51,7 @@ mv Cacti-old/cacti_log Cacti
 mv Cacti-old/cacti_plugins Cacti
 mv Cacti-old/cacti_rra Cacti
 
-Copy your Passwords from Cacti-old//docker-compose.bak to /docker-compose.bak
+Copy your Passwords from Cacti-old//docker-compose.bak to Cacti/docker-compose.yml
 cd Cacti
 ```
 
