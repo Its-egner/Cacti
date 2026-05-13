@@ -44,7 +44,14 @@ docker exec -i cacti_app mysql -u cacti -pyourpassword cacti < cacti.sql
 
 ```
 mv Cacti/docker-compose.yml Cacti/docker-compose.bak
+mv Cacti Cacti-old
 git clone -b ubuntu_26.04 https://github.com/Its-egner/Cacti.git
+mv Cacti-old/cacti_db Cacti
+mv Cacti-old/cacti_log Cacti
+mv Cacti-old/cacti_plugins Cacti
+mv Cacti-old/cacti_rra Cacti
+
+Copy your PAsswords from Cacti-old//docker-compose.bak to /docker-compose.bak
 cd Cacti
 ```
 
