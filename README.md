@@ -40,4 +40,15 @@ mysqldump -u cactiuser -pyourpassword cacti > cacti.sql
 docker exec -i cacti_app mysql -u cacti -pyourpassword cacti < cacti.sql
 ```
 
-### Update to Ubuntu 26.04
+### Update to Ubuntu 26 and Mariadb 11
+
+```
+mv Cacti/docker-compose.yml Cacti/docker-compose.bak
+git clone https://github.com/Its-egner/Cacti.git
+cd Cacti
+```
+
+Edit docker-compose File, change Passwords! and bring Container up.
+```
+docker compose up -d
+```
