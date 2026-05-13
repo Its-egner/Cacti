@@ -115,7 +115,7 @@ COPY supervisord.conf /etc/supervisord.conf
 COPY cacti-web.conf /etc/apache2/sites-available/000-default.conf
 
 
-RUN chmod 700 /var/www/html/init-db.sh && chmod a+x /root/cacti-init.sh && chmod 644 /var/www/html/cacti/timezone.sql && chmod 644 /etc/cron.d/cacti-poller && a2enmod php8.3 && \
+RUN chmod 700 /var/www/html/init-db.sh && chmod a+x /root/cacti-init.sh && chmod 644 /var/www/html/cacti/timezone.sql && chmod 644 /etc/cron.d/cacti-poller && a2enmod php8.5 && \
     a2enmod rewrite && \
     chmod 644 /etc/apache2/sites-available/000-default.conf
 
