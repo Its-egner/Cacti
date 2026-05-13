@@ -37,3 +37,5 @@ memory_limit = 512M
 max_execution_time = 60
 " >> /etc/php/*/cli/php.ini
 
+echo -e "[client]
+skip-ssl = true" >> /root/.my.cnf
