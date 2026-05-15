@@ -42,6 +42,14 @@ docker exec -i cacti_app mysql -u cacti -pyourpassword cacti < cacti.sql
 
 ### Update to Ubuntu 26 and Mariadb 11
 
+Shutdown current Container
+
+```
+cd Cacti
+docker compose down
+cd ..
+```
+
 ```
 mv Cacti/docker-compose.yml Cacti/docker-compose.bak
 mv Cacti Cacti-old
