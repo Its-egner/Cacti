@@ -81,6 +81,7 @@ RUN apt update && \
                     php-xml \
                     php-common \
                     php-ldap \
+		    php-sqlite3 \
                     mysql-client \
                     rrdtool \
                     apache2 \
