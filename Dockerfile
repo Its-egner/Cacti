@@ -79,6 +79,7 @@ RUN apt update && \
                     php-xml \
                     php-common \
                     php-ldap \
+		    php-sqlite3 \
                     mariadb-client \
                     rrdtool \
                     apache2 \
