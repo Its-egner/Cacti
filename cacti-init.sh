@@ -1,5 +1,3 @@
-#!/bin/bash
-
 config=/var/www/html/cacti/include/config.php
 sconfig=/usr/local/spine/etc/spine.conf
 
@@ -39,6 +37,9 @@ memory_limit = 512M
 max_execution_time = 60
 " >> /etc/php/*/cli/php.ini
 
+echo -e "[client]
+skip-ssl = true" >> /root/.my.cnf
+
 grepport70=$(grep -c 7070 /etc/apache2/ports.conf)
 if [ $grepport70 -eq "0" ]; then
      sed -i 's/Listen 80/Listen 80\nListen 7070/g' /etc/apache2/ports.conf
@@ -48,4 +49,3 @@ if [ ! -f /root/cert.pem ]; then
      openssl req -x509 -newkey rsa:4096 -keyout /root/key.pem -out /root/cert.pem -sha256 -days 3650 -nodes -subj "/C=XX/ST=State/L=City/O=Company/OU=CompanySection/CN=Cacti"
 fi
 
-while pgrep -u root openssl > /dev/null; do sleep 1; echo "Openssl still running"; done
