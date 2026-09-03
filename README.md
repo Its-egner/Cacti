@@ -1,3 +1,4 @@
+
 # Cacti
 ### Cacti Monitoring Docker Container
 
@@ -54,10 +55,10 @@ cd ..
 mv Cacti/docker-compose.yml Cacti/docker-compose.bak
 mv Cacti Cacti-old
 git clone -b ubuntu_26.04 https://github.com/Its-egner/Cacti.git
-mv Cacti-old/cacti_db Cacti
-mv Cacti-old/cacti_log Cacti
-mv Cacti-old/cacti_plugins Cacti
-mv Cacti-old/cacti_rra Cacti
+mv Cacti-old/cacti_db Cacti/
+mv Cacti-old/cacti_log Cacti/
+mv Cacti-old/cacti_plugins Cacti/
+mv Cacti-old/cacti_rra Cacti/
 
 Copy your Passwords from Cacti-old//docker-compose.bak to Cacti/docker-compose.yml
 cd Cacti
@@ -67,3 +68,21 @@ Edit docker-compose File, change Passwords! and bring Container up.
 ```
 docker compose up -d
 ```
+
+You can now use SSL connection to Container.
+
+Just edit this in docker-compose.yml
+
+```bash
+    ports:
+      - "7070:80"
+```
+
+to this 
+
+```bash
+    ports:
+      - "7070:443"
+```
+
+
