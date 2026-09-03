@@ -1,6 +1,6 @@
 services:
   db:
-    image: mariadb:11
+    image: mariadb:10.6
     container_name: cacti_db
     restart: unless-stopped
     environment:
@@ -14,13 +14,15 @@ services:
       - ./cacti_db:/var/lib/mysql
       - ./60-cacti.cnf:/etc/mysql/mariadb.conf.d/60-cacti.cnf
   cacti:
-#    image: itsegner/cacti:latest
+    #image: itsegner/cacti:latest
 #    image: itsegner/cacti-develop:latest
     build: .
     container_name: cacti_app
     restart: unless-stopped
     ports:
-      - "7070:80"
+#      - "7071:80"
+#      - "7072:443"
+      - "7070:7070" # HTTPS Coustom Port
     environment:
       CACTI_DB_HOST: "db"
       CACTI_DB_NAME: "cacti"
