@@ -1,5 +1,6 @@
 services:
   db:
+    # recommended is 10.6, but you can also use 10.11 or 11
     image: mariadb:11
     container_name: cacti_db
     restart: unless-stopped
